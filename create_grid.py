@@ -11,8 +11,8 @@ tstart = time.time()
 # -----------------------------------------------------------------------------
 
 
-xsize = 0.5
-ysize = 0.5
+xsize = 0.05
+ysize = 0.05
 
 xmin = -180
 xmax = 180
@@ -36,7 +36,6 @@ feature_list = []
 for r in xrange(nrows):
     y = ymax - (r * ysize)
 
-
     for c in xrange(ncols):
         x = xmin + (c * xsize)
 
@@ -47,23 +46,34 @@ for r in xrange(nrows):
         b_ymin = y - ysize
         b_ymax = y
 
-        b_bnds = (b_xmin, b_ymin, b_xmax, b_ymax)
+        # b_bnds = (b_xmin, b_ymin, b_xmax, b_ymax)
 
-        env = [
-            [b_bnds[0], b_bnds[3]],
-            [b_bnds[0], b_bnds[1]],
-            [b_bnds[2], b_bnds[1]],
-            [b_bnds[2], b_bnds[3]]
-        ]
+        # env = [
+        #     [b_xmin, b_ymax],
+        #     [b_xmin, b_ymin],
+        #     [b_xmax, b_ymin],
+        #     [b_xmax, b_ymax]
+        # ]
+
+        # geom = {
+        #     "type": "Polygon",
+        #     "coordinates": [ [
+        #         env[0],
+        #         env[1],
+        #         env[2],
+        #         env[3],
+        #         env[0]
+        #     ] ]
+        # }
 
         geom = {
             "type": "Polygon",
             "coordinates": [ [
-                env[0],
-                env[1],
-                env[2],
-                env[3],
-                env[0]
+                [b_xmin, b_ymax],
+                [b_xmin, b_ymin],
+                [b_xmax, b_ymin],
+                [b_xmax, b_ymax],
+                [b_xmin, b_ymax]
             ] ]
         }
 
@@ -96,19 +106,19 @@ for r in xrange(nrows):
 
 
 
+print "Run time: {0} seconds".format(round(time.time() - tstart), 2)
+
+
 geo_out = {
     "type": "FeatureCollection",
     "features": feature_list
 }
 
 
-print "Run time: {0} seconds".format(round(time.time() - tstart), 2)
-
-
 # -----------------------------------------------------------------------------
 
 
-geo_path = os.path.join(base_dir, "output.geojson")
+geo_path = os.path.join(base_dir, "grid_0.05.geojson")
 geo_file = open(geo_path, "w")
 json.dump(geo_out, geo_file)
 geo_file.close()
