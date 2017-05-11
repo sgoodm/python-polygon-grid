@@ -11,8 +11,8 @@ tstart = time.time()
 # -----------------------------------------------------------------------------
 
 
-xsize = 0.05
-ysize = 0.05
+xsize = 0.5
+ysize = 0.5
 
 xmin = -180
 xmax = 180
@@ -118,7 +118,7 @@ geo_out = {
 # -----------------------------------------------------------------------------
 
 
-geo_path = os.path.join(base_dir, "grid_0.05.geojson")
+geo_path = os.path.join(base_dir, "grid_0.5_degree.geojson")
 geo_file = open(geo_path, "w")
 json.dump(geo_out, geo_file)
 geo_file.close()
