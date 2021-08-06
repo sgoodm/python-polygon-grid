@@ -24,7 +24,7 @@ jobs:
         pip install pytest pytest-cov build
     - name: Test with pytest ✅
       run: |
-        pytest --cov=distancerasters
+        pytest --cov=polygongrid
     - name: Coveralls 👖
       if: matrix.python-version == 3.9
       env:
