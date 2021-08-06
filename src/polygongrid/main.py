@@ -21,18 +21,6 @@ class PolygonGrid(object):
                 all - all of the above
         """
 
-        # --------------------------------------
-
-        # # input bounds
-        # bounds = (-180, 180, -90, 90)
-
-        # # accepts input either step sizes (resolution) or dimension sizes (number of items in each dimension)
-        # # if both provided, they must agree
-        # step_size = (0.5, 0.5)
-        # dim_size = (720, 360)
-
-        # --------------------------------------
-
         # validate inputs
 
         if not properties:
@@ -47,8 +35,8 @@ class PolygonGrid(object):
 
 
         if step_size:
-            if isinstance(step_size, list) and len(step_size) == 1:
-                step_size= step_size[0]
+            if isinstance(step_size, (tuple, list)) and len(step_size) == 1:
+                step_size = step_size[0]
             if isinstance(step_size, (int, float)):
                 xstep = ystep = step_size
             elif len(step_size) == 2:
@@ -79,10 +67,11 @@ class PolygonGrid(object):
                 xstep, ystep = dim_xstep, dim_ystep
 
 
-        self.xstep, self.ystep = xstep, ystep
-        self.ncols, self.nrows = ncols, nrows
+
 
         if step_size or dim_size:
+            self.xstep, self.ystep = xstep, ystep
+            self.ncols, self.nrows = ncols, nrows
             # generate iterable for all col and row pairings
             # start in top left and go row by row
             self.index_iter = itertools.product(range(ncols), range(nrows))
@@ -96,31 +85,24 @@ class PolygonGrid(object):
             raise ValueError("Must provide either step size or dimension size")
 
 
-    def run(self):
-        tstart = time.time()
-        self.build_grid()
-        print("Run time: {} seconds".format(round(time.time() - tstart, 4)))
-        self.output_to_geojson(
-            self.build_geojson(),
-            "test_polygon_grid.geojson"
-        )
-
 
     def build_geojson(self):
-        geo_out = {
+        self.geojson = {
             "type": "FeatureCollection",
             "features": self.feature_list
         }
-        return geo_out
 
 
-    def output_to_geojson(self, data, path):
+    def output_to_geojson(self, path):
+        self.build_geojson()
         with open(path, "w") as dst:
-            json.dump(data, dst)
+            json.dump(self.geojson, dst)
 
 
     def build_grid(self):
+        tstart = time.time()
         self.feature_list = list(self.gen_grid())
+        print("Run time: {} seconds".format(round(time.time() - tstart, 4)))
 
 
     def gen_grid(self):
