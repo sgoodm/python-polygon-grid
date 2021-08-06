@@ -13,3 +13,6 @@ tests/*
 examples/*.tif
 *.geojson
 __pycache__
+dist
+build
+.pytest_cache
