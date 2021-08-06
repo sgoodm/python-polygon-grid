@@ -1,1 +1,15 @@
+*.pyc
+*.tif.aux.xml
+*.tif
+build/*
+dist/*
+.DS_Store
+MANIFEST
+*.egg-info
+htmlcov
+.coverage
+tests/*
+!tests/*.py
+examples/*.tif
 *.geojson
+__pycache__
