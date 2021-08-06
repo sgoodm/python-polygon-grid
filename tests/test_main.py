@@ -38,6 +38,10 @@ def test_valid_args():
     pg.PolygonGrid((-180, 180, -90, 90), dim_size=(720, 360))
 
 
+def test_version():
+    pg.__version__
+
+
 def test_build_grid():
     my_pg = pg.PolygonGrid((-180, 180, -90, 90), step_size=(10, 10), properties=['all'])
     my_pg.build_grid()
