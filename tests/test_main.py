@@ -1,6 +1,6 @@
 import os
 import pytest
-import polygongrid import PG
+from polygongrid import PG
 
 
 def test_bad_args():
