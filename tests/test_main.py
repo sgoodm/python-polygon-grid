@@ -46,4 +46,7 @@ def test_build_grid():
 def test_output_to_geojson():
     my_pg = pg.PolygonGrid((-180, 180, -90, 90), step_size=(10, 10), properties=['all'])
     my_pg.build_grid()
-    my_pg.output_to_geojson("tests/test.geojson")
+    example_path = "tests/test.geojson"
+    if os.path.isfile(example_path):
+        os.remove(example_path)
+    my_pg.output_to_geojson(example_path)
