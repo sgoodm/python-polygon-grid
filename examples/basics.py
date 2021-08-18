@@ -3,7 +3,7 @@ import polygongrid as pg
 # desired bounds
 bounds = (-180, 180, -90, 90)
 
-# accepts input either step sizes (resolution) or dimension sizes (number of items in each dimension)
+# accepts input of either step sizes (resolution) or dimension sizes (number of items in each dimension)
 # if both provided, they must agree
 step_size = (10, 10)
 dim_size = (36, 18)
